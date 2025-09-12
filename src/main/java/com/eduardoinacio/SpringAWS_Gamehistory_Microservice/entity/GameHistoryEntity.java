@@ -14,6 +14,16 @@ public class GameHistoryEntity {
     private Double score;
     private Instant createdAt;
 
+    public GameHistoryEntity() {
+    }
+
+    public GameHistoryEntity(String username, String gameId, Double score, Instant createdAt) {
+        this.username = username;
+        this.gameId = gameId;
+        this.score = score;
+        this.createdAt = createdAt;
+    }
+
     @DynamoDbPartitionKey
     @DynamoDbAttribute(value = "username")
     public String getUsername() {
