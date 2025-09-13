@@ -2,6 +2,7 @@ package com.eduardoinacio.SpringAWS_Gamehistory_Microservice.service;
 
 import com.eduardoinacio.SpringAWS_Gamehistory_Microservice.controller.DTO.GameStatsRequest;
 import com.eduardoinacio.SpringAWS_Gamehistory_Microservice.entity.GameHistoryEntity;
+import com.eduardoinacio.SpringAWS_Gamehistory_Microservice.mapper.GameHistoryMapper;
 import io.awspring.cloud.dynamodb.DynamoDbTemplate;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.enhanced.dynamodb.Key;
@@ -13,13 +14,15 @@ import java.util.List;
 @Service
 public class GameHistoryService {
     private DynamoDbTemplate dynamoDbTemplate;
+    private GameHistoryMapper gameHistoryMapper;
 
-    public GameHistoryService(DynamoDbTemplate dynamoDbTemplate) {
+    public GameHistoryService(DynamoDbTemplate dynamoDbTemplate, GameHistoryMapper gameHistoryMapper) {
         this.dynamoDbTemplate = dynamoDbTemplate;
+        this.gameHistoryMapper = gameHistoryMapper;
     }
 
     public void saveGameInfos(GameStatsRequest request) {
-        GameHistoryEntity game = request.toGameHistoryEntity();
+        GameHistoryEntity game = gameHistoryMapper.toGameHistoryEntity(request);
         dynamoDbTemplate.save(game);
     }
 
