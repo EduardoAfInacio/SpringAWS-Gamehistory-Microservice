@@ -1,6 +1,7 @@
 package com.eduardoinacio.SpringAWS_Gamehistory_Microservice.service;
 
 import com.eduardoinacio.SpringAWS_Gamehistory_Microservice.controller.DTO.GameStatsRequest;
+import com.eduardoinacio.SpringAWS_Gamehistory_Microservice.controller.DTO.GameStatsResponse;
 import com.eduardoinacio.SpringAWS_Gamehistory_Microservice.entity.GameHistoryEntity;
 import com.eduardoinacio.SpringAWS_Gamehistory_Microservice.mapper.GameHistoryMapper;
 import io.awspring.cloud.dynamodb.DynamoDbTemplate;
@@ -26,11 +27,12 @@ public class GameHistoryService {
         dynamoDbTemplate.save(game);
     }
 
-    public List<GameHistoryEntity> getGameHistoryFrom(String username){
+    public List<GameStatsResponse> getGameHistoryFrom(String username){
         var key = Key.builder().partitionValue(username).build();
         var condition = QueryConditional.keyEqualTo(key);
         var query = QueryEnhancedRequest.builder().queryConditional(condition).build();
-        var queryResult = dynamoDbTemplate.query(query, GameHistoryEntity.class);
-        return queryResult.items().stream().toList();
+        var queryResult = dynamoDbTemplate.query(query, GameHistoryEntity.class).items().stream().toList();
+        var gameList = queryResult.stream().map(gameHistoryMapper::toGameStatsResponse).toList();
+        return gameList;
     }
 }

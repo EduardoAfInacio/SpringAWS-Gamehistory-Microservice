@@ -1,7 +1,7 @@
 package com.eduardoinacio.SpringAWS_Gamehistory_Microservice.controller;
 
 import com.eduardoinacio.SpringAWS_Gamehistory_Microservice.controller.DTO.GameStatsRequest;
-import com.eduardoinacio.SpringAWS_Gamehistory_Microservice.entity.GameHistoryEntity;
+import com.eduardoinacio.SpringAWS_Gamehistory_Microservice.controller.DTO.GameStatsResponse;
 import com.eduardoinacio.SpringAWS_Gamehistory_Microservice.service.GameHistoryService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +24,7 @@ public class GameHistoryController {
     }
 
     @GetMapping("/{username}/games")
-    public ResponseEntity<List<GameHistoryEntity>> getGamesFrom(@PathVariable(value = "username") String username){
+    public ResponseEntity<List<GameStatsResponse>> getGamesFrom(@PathVariable(value = "username") String username){
         var userGames = gameHistoryService.getGameHistoryFrom(username);
         return ResponseEntity.ok().body(userGames);
     }
