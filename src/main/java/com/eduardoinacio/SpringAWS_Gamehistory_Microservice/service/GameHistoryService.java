@@ -8,7 +8,6 @@ import com.eduardoinacio.SpringAWS_Gamehistory_Microservice.mapper.GameHistoryMa
 import io.awspring.cloud.dynamodb.DynamoDbTemplate;
 import org.apache.coyote.BadRequestException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 import software.amazon.awssdk.enhanced.dynamodb.Key;
 import software.amazon.awssdk.enhanced.dynamodb.model.QueryConditional;
 import software.amazon.awssdk.enhanced.dynamodb.model.QueryEnhancedRequest;
@@ -39,7 +38,7 @@ public class GameHistoryService {
         return gameList;
     }
 
-    public GameStatsResponse getSpecificGameFrom(String gameId, String username) throws BadRequestException {
+    public GameStatsResponse getSpecificGameFrom(String username, String gameId) throws BadRequestException {
         var key = Key.builder().partitionValue(username).sortValue(gameId).build();
         var game = dynamoDbTemplate.load(key, GameHistoryEntity.class);
         if(game == null) throw new BadRequestException("Game not found");
@@ -52,5 +51,12 @@ public class GameHistoryService {
         if(game == null) throw new BadRequestException("Game not found");
         game.setScore(request.score());
         dynamoDbTemplate.save(game);
+    }
+
+    public void deleteSpecificGameFrom(String username, String gameId) throws BadRequestException {
+        var key = Key.builder().partitionValue(username).sortValue(gameId).build();
+        var game = dynamoDbTemplate.load(key, GameHistoryEntity.class);
+        if(game == null) throw new BadRequestException("Game not found");
+        dynamoDbTemplate.delete(game);
     }
 }
