@@ -2,12 +2,11 @@ package com.eduardoinacio.SpringAWS_Gamehistory_Microservice.controller;
 
 import com.eduardoinacio.SpringAWS_Gamehistory_Microservice.controller.DTO.GameStatsRequest;
 import com.eduardoinacio.SpringAWS_Gamehistory_Microservice.controller.DTO.GameStatsResponse;
+import com.eduardoinacio.SpringAWS_Gamehistory_Microservice.controller.DTO.NewScoreDTO;
 import com.eduardoinacio.SpringAWS_Gamehistory_Microservice.service.GameHistoryService;
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -30,5 +29,14 @@ public class GameHistoryController {
                                                           throws BadRequestException {
         var userGame = gameHistoryService.getSpecificGameFrom(gameId, username);
         return ResponseEntity.ok().body(userGame);
+    }
+
+    @PutMapping("/{username}/games/{gameId}")
+    public ResponseEntity<GameStatsResponse> getGamesFrom(@PathVariable(value = "username") String username,
+                                                          @PathVariable(value = "gameId") String gameId,
+                                                          @RequestBody NewScoreDTO request)
+                                                            throws BadRequestException {
+        gameHistoryService.updateSpecificGameFrom(gameId, username, request);
+        return ResponseEntity.ok().build();
     }
 }

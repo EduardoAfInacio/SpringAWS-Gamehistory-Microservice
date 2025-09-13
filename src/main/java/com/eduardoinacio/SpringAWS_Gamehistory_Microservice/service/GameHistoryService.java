@@ -2,6 +2,7 @@ package com.eduardoinacio.SpringAWS_Gamehistory_Microservice.service;
 
 import com.eduardoinacio.SpringAWS_Gamehistory_Microservice.controller.DTO.GameStatsRequest;
 import com.eduardoinacio.SpringAWS_Gamehistory_Microservice.controller.DTO.GameStatsResponse;
+import com.eduardoinacio.SpringAWS_Gamehistory_Microservice.controller.DTO.NewScoreDTO;
 import com.eduardoinacio.SpringAWS_Gamehistory_Microservice.entity.GameHistoryEntity;
 import com.eduardoinacio.SpringAWS_Gamehistory_Microservice.mapper.GameHistoryMapper;
 import io.awspring.cloud.dynamodb.DynamoDbTemplate;
@@ -43,5 +44,13 @@ public class GameHistoryService {
         var game = dynamoDbTemplate.load(key, GameHistoryEntity.class);
         if(game == null) throw new BadRequestException("Game not found");
         return gameHistoryMapper.toGameStatsResponse(game);
+    }
+
+    public void updateSpecificGameFrom(String gameId, String username, NewScoreDTO request) throws BadRequestException {
+        var key = Key.builder().partitionValue(username).sortValue(gameId).build();
+        var game = dynamoDbTemplate.load(key, GameHistoryEntity.class);
+        if(game == null) throw new BadRequestException("Game not found");
+        game.setScore(request.score());
+        dynamoDbTemplate.save(game);
     }
 }
