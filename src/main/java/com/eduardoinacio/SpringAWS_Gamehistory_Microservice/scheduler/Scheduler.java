@@ -14,7 +14,7 @@ public class Scheduler {
         this.leaderboardService = leaderboardService;
     }
 
-    @Scheduled(fixedDelay = 30, timeUnit = TimeUnit.SECONDS)
+    @Scheduled(fixedDelay = 12, timeUnit = TimeUnit.HOURS)
     public void analyseTopTenScores(){
         leaderboardService.updateTopTenLeaderboard();
     }
