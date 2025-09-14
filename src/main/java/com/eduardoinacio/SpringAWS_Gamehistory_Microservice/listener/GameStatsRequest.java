@@ -1,4 +1,4 @@
-package com.eduardoinacio.SpringAWS_Gamehistory_Microservice.controller.DTO;
+package com.eduardoinacio.SpringAWS_Gamehistory_Microservice.listener;
 
 import java.time.Instant;
 

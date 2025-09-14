@@ -1,6 +1,6 @@
 package com.eduardoinacio.SpringAWS_Gamehistory_Microservice.mapper;
 
-import com.eduardoinacio.SpringAWS_Gamehistory_Microservice.controller.DTO.GameStatsRequest;
+import com.eduardoinacio.SpringAWS_Gamehistory_Microservice.listener.GameStatsRequest;
 import com.eduardoinacio.SpringAWS_Gamehistory_Microservice.controller.DTO.GameStatsResponse;
 import com.eduardoinacio.SpringAWS_Gamehistory_Microservice.entity.GameHistoryEntity;
 import org.springframework.stereotype.Component;

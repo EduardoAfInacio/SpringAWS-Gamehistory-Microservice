@@ -1,6 +1,5 @@
 package com.eduardoinacio.SpringAWS_Gamehistory_Microservice.controller;
 
-import com.eduardoinacio.SpringAWS_Gamehistory_Microservice.controller.DTO.GameStatsRequest;
 import com.eduardoinacio.SpringAWS_Gamehistory_Microservice.controller.DTO.GameStatsResponse;
 import com.eduardoinacio.SpringAWS_Gamehistory_Microservice.controller.DTO.NewScoreDTO;
 import com.eduardoinacio.SpringAWS_Gamehistory_Microservice.service.GameHistoryService;
@@ -19,11 +18,11 @@ public class GameHistoryController {
         this.gameHistoryService = gameHistoryService;
     }
 
-    @PostMapping("/games")
-    public ResponseEntity<Void> save(@RequestBody GameStatsRequest request) {
-        gameHistoryService.saveGameInfos(request);
-        return ResponseEntity.ok().build();
-    }
+//    @PostMapping("/games")
+//    public ResponseEntity<Void> save(@RequestBody GameStatsRequest request) {
+//        gameHistoryService.saveGameInfos(request);
+//        return ResponseEntity.ok().build();
+//    }
 
     @GetMapping("/{username}/games")
     public ResponseEntity<List<GameStatsResponse>> getGamesFrom(@PathVariable(value = "username") String username) {
