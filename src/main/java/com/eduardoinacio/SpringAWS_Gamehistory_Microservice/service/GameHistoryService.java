@@ -5,7 +5,6 @@ import com.eduardoinacio.SpringAWS_Gamehistory_Microservice.controller.DTO.GameS
 import com.eduardoinacio.SpringAWS_Gamehistory_Microservice.controller.DTO.NewScoreDTO;
 import com.eduardoinacio.SpringAWS_Gamehistory_Microservice.entity.GameHistoryEntity;
 import com.eduardoinacio.SpringAWS_Gamehistory_Microservice.mapper.GameHistoryMapper;
-import com.eduardoinacio.SpringAWS_Gamehistory_Microservice.producer.SQSProducer;
 import io.awspring.cloud.dynamodb.DynamoDbTemplate;
 import org.apache.coyote.BadRequestException;
 import org.springframework.stereotype.Service;
