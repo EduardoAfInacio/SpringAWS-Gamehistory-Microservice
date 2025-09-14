@@ -6,6 +6,7 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.S3Configuration;
+import software.amazon.awssdk.services.sns.SnsAsyncClient;
 import software.amazon.awssdk.services.sqs.SqsAsyncClient;
 
 import java.net.URI;
@@ -25,6 +26,14 @@ public class AWSConfig {
     @Bean
     public SqsAsyncClient sqsAsyncClient(){
         return SqsAsyncClient.builder()
+                .endpointOverride(URI.create(ENDPOINT_OVERRIDE))
+                .region(Region.SA_EAST_1)
+                .build();
+    }
+
+    @Bean
+    public SnsAsyncClient snsAsyncClient(){
+        return SnsAsyncClient.builder()
                 .endpointOverride(URI.create(ENDPOINT_OVERRIDE))
                 .region(Region.SA_EAST_1)
                 .build();
