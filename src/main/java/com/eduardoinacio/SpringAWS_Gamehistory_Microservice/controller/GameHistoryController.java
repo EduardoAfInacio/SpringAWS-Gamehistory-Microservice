@@ -2,6 +2,7 @@ package com.eduardoinacio.SpringAWS_Gamehistory_Microservice.controller;
 
 import com.eduardoinacio.SpringAWS_Gamehistory_Microservice.controller.DTO.GameStatsResponse;
 import com.eduardoinacio.SpringAWS_Gamehistory_Microservice.controller.DTO.NewScoreDTO;
+import com.eduardoinacio.SpringAWS_Gamehistory_Microservice.listener.GameStatsRequest;
 import com.eduardoinacio.SpringAWS_Gamehistory_Microservice.service.GameHistoryService;
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,12 @@ public class GameHistoryController {
 
     public GameHistoryController(GameHistoryService gameHistoryService) {
         this.gameHistoryService = gameHistoryService;
+    }
+
+    @PostMapping("/games")
+    public ResponseEntity<Void> saveMultipleGames(@RequestBody List<GameStatsRequest> games){
+        gameHistoryService.saveMultipleGames(games);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/{username}/games")
