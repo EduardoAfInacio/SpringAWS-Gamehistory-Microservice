@@ -18,12 +18,6 @@ public class GameHistoryController {
         this.gameHistoryService = gameHistoryService;
     }
 
-//    @PostMapping("/games")
-//    public ResponseEntity<Void> save(@RequestBody GameStatsRequest request) {
-//        gameHistoryService.saveGameInfos(request);
-//        return ResponseEntity.ok().build();
-//    }
-
     @GetMapping("/{username}/games")
     public ResponseEntity<List<GameStatsResponse>> getGamesFrom(@PathVariable(value = "username") String username) {
         var userGames = gameHistoryService.getGameHistoryFrom(username);
