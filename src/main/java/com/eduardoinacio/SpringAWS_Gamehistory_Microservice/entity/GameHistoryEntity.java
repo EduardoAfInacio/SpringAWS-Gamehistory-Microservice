@@ -1,9 +1,6 @@
 package com.eduardoinacio.SpringAWS_Gamehistory_Microservice.entity;
 
-import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbAttribute;
-import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
-import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
-import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSortKey;
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.*;
 
 import java.time.Instant;
 
@@ -60,5 +57,16 @@ public class GameHistoryEntity {
 
     public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
+    }
+
+    @DynamoDbSecondaryPartitionKey(indexNames = "global-score-index")
+    public String getGlobalPartitionKey(){
+        return "GLOBAL";
+    }
+
+    @DynamoDbSecondarySortKey(indexNames = "global-score-index")
+    @DynamoDbAttribute(value = "score")
+    public Double getScoreIndex(){
+        return score;
     }
 }
