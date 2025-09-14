@@ -13,7 +13,7 @@ public class SQSProducer {
         this.sqsTemplate = sqsTemplate;
     }
 
-    public void sendToLeaderboardQueue(GameStatsResponse response){
-        sqsTemplate.send(SEND_MESSAGE_QUEUE_NAME, response);
+    public void newTopTenNotify(){
+        sqsTemplate.send(SEND_MESSAGE_QUEUE_NAME, "New top 10 games available!");
     }
 }

@@ -19,26 +19,22 @@ import java.util.List;
 public class GameHistoryService {
     private DynamoDbTemplate dynamoDbTemplate;
     private GameHistoryMapper gameHistoryMapper;
-    private SQSProducer sqsProducer;
 
-    public GameHistoryService(DynamoDbTemplate dynamoDbTemplate, GameHistoryMapper gameHistoryMapper, SQSProducer sqsProducer) {
+    public GameHistoryService(DynamoDbTemplate dynamoDbTemplate, GameHistoryMapper gameHistoryMapper) {
         this.dynamoDbTemplate = dynamoDbTemplate;
         this.gameHistoryMapper = gameHistoryMapper;
-        this.sqsProducer = sqsProducer;
     }
 
     public void saveMultipleGames(List<GameStatsRequest> games){
         var gamesEntity = games.stream().map(gameHistoryMapper::toGameHistoryEntity).toList();
         for(GameHistoryEntity game : gamesEntity){
             dynamoDbTemplate.save(game);
-            sqsProducer.sendToLeaderboardQueue(gameHistoryMapper.toGameStatsResponse(game));
         }
     }
 
     public void saveGameInfos(GameStatsRequest request) {
         GameHistoryEntity game = gameHistoryMapper.toGameHistoryEntity(request);
         dynamoDbTemplate.save(game);
-        sqsProducer.sendToLeaderboardQueue(gameHistoryMapper.toGameStatsResponse(game));
     }
 
     public List<GameStatsResponse> getGameHistoryFrom(String username){
