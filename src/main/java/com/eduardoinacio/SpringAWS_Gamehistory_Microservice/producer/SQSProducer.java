@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class SQSProducer {
-    private static final String SEND_MESSAGE_QUEUE_NAME = "game-leaderboard-queue";
+    private static final String SEND_MESSAGE_QUEUE_NAME = "https://localhost.localstack.cloud:4566/000000000000/game-leaderboard-queue";
     private SqsTemplate sqsTemplate;
 
     public SQSProducer(SqsTemplate sqsTemplate) {
