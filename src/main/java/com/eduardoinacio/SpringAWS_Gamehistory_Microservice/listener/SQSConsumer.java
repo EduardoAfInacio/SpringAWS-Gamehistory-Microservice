@@ -12,7 +12,7 @@ public class SQSConsumer {
         this.gameHistoryService = gameHistoryService;
     }
 
-    @SqsListener("game-server-queue")
+    @SqsListener("game-server-producer")
     public void receiveMessage(GameStatsRequest request){
         gameHistoryService.saveGameInfos(request);
     }
